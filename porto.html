@@ -1,0 +1,820 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alex Chen - Developer Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+        
+        * {
+            font-family: 'Inter', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0c0c1d 0%, #1a1a2e 25%, #16213e 50%, #0f3460 75%, #533483 100%);
+            min-height: 100vh;
+        }
+        
+        .space-bg {
+            background: radial-gradient(ellipse at top, #1e3a8a 0%, #1e1b4b 50%, #0c0c1d 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .space-bg::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: 
+                radial-gradient(2px 2px at 20px 30px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255,255,255,0.2), transparent),
+                radial-gradient(1px 1px at 90px 40px, rgba(255,255,255,0.4), transparent),
+                radial-gradient(1px 1px at 130px 80px, rgba(255,255,255,0.3), transparent),
+                radial-gradient(2px 2px at 160px 30px, rgba(255,255,255,0.2), transparent);
+            background-repeat: repeat;
+            background-size: 200px 100px;
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+        
+        @keyframes twinkle {
+            0% { opacity: 0.3; }
+            100% { opacity: 1; }
+        }
+        
+        .glass-effect {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(60px) scale(0.95);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        
+        .scroll-reveal-left {
+            opacity: 0;
+            transform: translateX(-60px) rotate(-5deg);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-reveal-left.revealed {
+            opacity: 1;
+            transform: translateX(0) rotate(0deg);
+        }
+        
+        .scroll-reveal-right {
+            opacity: 0;
+            transform: translateX(60px) rotate(5deg);
+            transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+        
+        .scroll-reveal-right.revealed {
+            opacity: 1;
+            transform: translateX(0) rotate(0deg);
+        }
+        
+        .typing-animation {
+            border-right: 2px solid #60a5fa;
+            animation: blink 1s infinite;
+        }
+        
+        @keyframes blink {
+            0%, 50% { border-color: #60a5fa; }
+            51%, 100% { border-color: transparent; }
+        }
+        
+        .skill-card {
+            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transform: translateY(0);
+        }
+        
+        .skill-card:hover {
+            transform: translateY(-12px) scale(1.02);
+            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
+        }
+        
+        .project-card {
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            overflow: hidden;
+        }
+        
+        .project-card:hover {
+            transform: scale(1.03) rotateY(5deg);
+            box-shadow: 0 30px 60px rgba(139, 92, 246, 0.4);
+        }
+        
+        .project-card:hover .project-overlay {
+            opacity: 1;
+        }
+        
+        .project-overlay {
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.9), rgba(139, 92, 246, 0.9));
+        }
+        
+        .floating {
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            33% { transform: translateY(-20px) rotate(1deg); }
+            66% { transform: translateY(-10px) rotate(-1deg); }
+        }
+        
+        .gradient-text {
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradient-shift 3s ease-in-out infinite;
+        }
+        
+        @keyframes gradient-shift {
+            0%, 100% { filter: hue-rotate(0deg); }
+            50% { filter: hue-rotate(30deg); }
+        }
+        
+        .nav-link {
+            position: relative;
+            transition: all 0.3s ease;
+            color: rgba(255, 255, 255, 0.8);
+        }
+        
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            color: white;
+            transform: translateY(-2px);
+        }
+        
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        
+        .profile-photo {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #60a5fa, #a78bfa, #f472b6);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: white;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(96, 165, 250, 0.3);
+        }
+        
+        .profile-photo:hover {
+            transform: scale(1.1) rotate(5deg);
+            box-shadow: 0 8px 25px rgba(96, 165, 250, 0.5);
+        }
+        
+        .glow-button {
+            background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+            box-shadow: 0 4px 15px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+        }
+        
+        .glow-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.6);
+        }
+        
+        .pulse-ring {
+            animation: pulse-ring 2s cubic-bezier(0.455, 0.03, 0.515, 0.955) infinite;
+        }
+        
+        @keyframes pulse-ring {
+            0% {
+                transform: scale(0.8);
+                opacity: 1;
+            }
+            80%, 100% {
+                transform: scale(1.2);
+                opacity: 0;
+            }
+        }
+        
+        .section-divider {
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(96, 165, 250, 0.5), transparent);
+            margin: 4rem 0;
+        }
+        
+        .navbar-blur {
+            backdrop-filter: blur(20px);
+            background: rgba(12, 12, 29, 0.8);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .navbar-scrolled {
+            background: rgba(12, 12, 29, 0.95);
+            backdrop-filter: blur(30px);
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+        
+        .navbar-scrolled .profile-photo {
+            transform: scale(0.9);
+        }
+        
+        .navbar-scrolled .nav-link {
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .hero-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            animation: pulse-glow 4s ease-in-out infinite;
+        }
+        
+        @keyframes pulse-glow {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+        }
+    </style>
+</head>
+<body class="text-white">
+    <!-- Enhanced Navigation -->
+    <nav class="fixed top-0 w-full navbar-blur z-50">
+        <div class="max-w-6xl mx-auto px-6 py-4">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-4">
+                    <div class="profile-photo">TJ</div>
+                    <div class="text-xl font-bold gradient-text">Timothy Juwono</div>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#home" class="nav-link">Home</a>
+                    <a href="#about" class="nav-link">About</a>
+                    <a href="#skills" class="nav-link">Skills</a>
+                    <a href="#projects" class="nav-link">Porfolio</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </div>
+                <button id="mobile-menu-button" class="md:hidden p-2 glass-effect rounded-lg transition-all duration-300">
+                    <svg id="hamburger-icon" class="w-6 h-6 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                    <svg id="close-icon" class="w-6 h-6 hidden transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                    </svg>
+                </button>
+            </div>
+            
+            <!-- Mobile Menu -->
+            <div id="mobile-menu" class="md:hidden hidden">
+                <div class="px-6 py-4 space-y-4 glass-effect border-t border-white/10">
+                    <a href="#home" class="block nav-link text-lg py-2">Home</a>
+                    <a href="#about" class="block nav-link text-lg py-2">About</a>
+                    <a href="#skills" class="block nav-link text-lg py-2">Skills</a>
+                    <a href="#projects" class="block nav-link text-lg py-2">Porfolio</a>
+                    <a href="#contact" class="block nav-link text-lg py-2">Contact</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center space-bg relative mt-20">
+        <div class="hero-glow"></div>
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <!-- Text Content -->
+                <div class="text-center lg:text-left">
+                    <div class="scroll-reveal">
+                        <h1 class="text-5xl md:text-7xl lg:text-8xl font-bold mb-6 leading-tight">
+                            Hi, I'm <span class="gradient-text">Timothy Juwono</span>
+                        </h1>
+                    </div>
+                    <div class="scroll-reveal">
+                        <p class="text-2xl md:text-3xl text-blue-200 mb-8">
+                            <span id="typing-text" class="typing-animation">Full-Stack Developer</span>
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <p class="text-lg text-gray-300 mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+                            I craft extraordinary digital experiences that push the boundaries of what's possible. 
+                            Transforming complex ideas into elegant, powerful solutions that captivate and inspire.
+                        </p>
+                    </div>
+                    <div class="scroll-reveal">
+                        <div class="flex flex-col sm:flex-row gap-6 justify-center lg:justify-start">
+                            <button onclick="scrollToSection('projects')" class="glow-button text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all duration-300">
+                                Explore My Universe
+                            </button>
+                            <button onclick="scrollToSection('contact')" class="glass-effect text-white px-10 py-4 rounded-xl font-semibold text-lg transition-all duration-300 hover:bg-white/10">
+                                Let's Connect
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Profile Image -->
+                <div class="scroll-reveal-left flex justify-center lg:justify-end">
+                    <div class="relative">
+                        <div class="pulse-ring absolute inset-0 rounded-full bg-blue-500 opacity-20"></div>
+                        <div class="w-80 h-80 md:w-96 md:h-96 lg:w-[500px] lg:h-[500px]  bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-full flex items-center justify-center text-8xl font-bold shadow-2xl floating">
+                            TJ
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Scroll Indicator -->
+            <div class="scroll-reveal mt-20 text-center">
+                <div class="floating">
+                    <svg class="w-8 h-8 mx-auto text-blue-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
+                    </svg>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-32 relative">
+        <div class="section-divider"></div>
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-20 scroll-reveal">
+                <h2 class="text-5xl font-bold mb-6 gradient-text">About Me</h2>
+                <p class="text-xl text-gray-300 max-w-3xl mx-auto">
+                    A passionate Developer that crafts solution that satisfy all client.
+                </p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="scroll-reveal-left">
+                    <div class="glass-effect rounded-3xl p-12 floating relative">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-500/20 to-purple-600/20 rounded-3xl"></div>
+                        <div class="w-48 h-48 bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 rounded-full mx-auto flex items-center justify-center text-6xl font-bold shadow-2xl relative z-10">
+                            TJ
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-reveal-right">
+                    <h3 class="text-3xl font-bold mb-8 text-blue-200">Crafting Tomorrow's Digital Reality</h3>
+                    <p class="text-gray-300 mb-8 text-lg leading-relaxed">
+                        With almost 5+ years of experience in the digital scene, specializing to building scalable mobile apps and designing robust backend architectures. 
+                        As a passionate volunteer in the IT ministry of my church, I contribute to creating applications that go beyond expectations every line of code I write is crafted to elevate 
+                        user experience and long-term scalability.
+                    </p>
+                    <div class="space-y-6">
+                        <div class="flex items-center group">
+                            <div class="w-4 h-4 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full mr-4 group-hover:scale-125 transition-transform"></div>
+                            <span class="text-lg">5+ years mastering the tech industry</span>
+                        </div>
+                        <div class="flex items-center group">
+                            <div class="w-4 h-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-full mr-4 group-hover:scale-125 transition-transform"></div>
+                            <span class="text-lg">10+ innovative projects delivered</span>
+                        </div>
+                        <div class="flex items-center group">
+                            <div class="w-4 h-4 bg-gradient-to-r from-pink-500 to-blue-500 rounded-full mr-4 group-hover:scale-125 transition-transform"></div>
+                            <span class="text-lg">Constantly evolving with cutting-edge tech</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-32 relative">
+        <div class="section-divider"></div>
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-20 scroll-reveal">
+                <h2 class="text-5xl font-bold mb-6 gradient-text">Skills & Arsenal</h2>
+                <p class="text-xl text-gray-300">The powerful tools I wield to bring visions to life</p>
+            </div>
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="skill-card glass-effect p-10 rounded-3xl scroll-reveal">
+                    <div class="w-20 h-20 bg-gradient-to-br from-blue-500 to-cyan-400 rounded-2xl flex items-center justify-center mb-8 mx-auto">   
+                        <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M0 32v448h448V32H0zm243.8 349.4c0 43.6-25.6 63.5-62.9 63.5-33.7 0-53.2-17.4-63.2-38.5l34.3-20.7c6.6 11.7 12.6 21.6 27.1 21.6 13.8 0 22.6-5.4 22.6-26.5V237.7h42.1v143.7zm99.6 63.5c-39.1 0-64.4-18.6-76.7-43l34.3-19.8c9 14.7 20.8 25.6 41.5 25.6 17.4 0 28.6-8.7 28.6-20.8 0-14.4-11.4-19.5-30.7-28l-10.5-4.5c-30.4-12.9-50.5-29.2-50.5-63.5 0-31.6 24.1-55.6 61.6-55.6 26.8 0 46 9.3 59.8 33.7L368 290c-7.2-12.9-15-18-27.1-18-12.3 0-20.1 7.8-20.1 18 0 12.6 7.8 17.7 25.9 25.6l10.5 4.5c35.8 15.3 55.9 31 55.9 66.2 0 37.8-29.8 58.6-69.7 58.6z"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-center text-blue-200">Fullstack Development</h3>
+                    <p class="text-gray-300 mb-6 text-center">Crafting pixel-perfect, responsive interfaces that captivate</p>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <span class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm border border-blue-500/30">HTML</span>
+                        <span class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm border border-blue-500/30">CSS</span>
+                        <span class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm border border-blue-500/30">Boostrap</span>
+                        <span class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm border border-blue-500/30">Tailwind</span>
+                        <span class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm border border-blue-500/30">JS</span>
+                        <span class="bg-blue-500/20 text-blue-300 px-4 py-2 rounded-full text-sm border border-blue-500/30">PHP</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card glass-effect p-10 rounded-3xl scroll-reveal">
+                    <div class="w-20 h-20 bg-gradient-to-br from-purple-500 to-pink-400 rounded-2xl flex items-center justify-center mb-8 mx-auto">
+                        <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M504.4 115.8a5.7 5.7 0 0 0 -.3-.7 8.5 8.5 0 0 0 -.5-1.3 6 6 0 0 0 -.5-.7 9.4 9.4 0 0 0 -.7-.9c-.2-.2-.5-.4-.8-.6a8.8 8.8 0 0 0 -.9-.7L404.4 55.6a8 8 0 0 0 -8 0L300.1 111h0a8.1 8.1 0 0 0 -.9 .7 7.7 7.7 0 0 0 -.8 .6 8.2 8.2 0 0 0 -.7 .9c-.2 .2-.4 .5-.5 .7a9.7 9.7 0 0 0 -.5 1.3c-.1 .2-.2 .4-.3 .7a8.1 8.1 0 0 0 -.3 2.1V223.2l-80.2 46.2V63.4a7.8 7.8 0 0 0 -.3-2.1c-.1-.2-.2-.5-.3-.7a8.4 8.4 0 0 0 -.5-1.2c-.1-.3-.4-.5-.5-.7a9.4 9.4 0 0 0 -.7-.9 9.5 9.5 0 0 0 -.8-.6 9.8 9.8 0 0 0 -.9-.7h0L115.6 1.1a8 8 0 0 0 -8 0L11.3 56.5h0a6.5 6.5 0 0 0 -.9 .7 7.8 7.8 0 0 0 -.8 .6 8.2 8.2 0 0 0 -.7 .9c-.2 .3-.4 .5-.6 .7a7.9 7.9 0 0 0 -.5 1.2 6.5 6.5 0 0 0 -.3 .7 8.2 8.2 0 0 0 -.3 2.1v329.7a8 8 0 0 0 4 7l192.5 110.8a8.8 8.8 0 0 0 1.3 .5c.2 .1 .4 .2 .6 .3a7.9 7.9 0 0 0 4.1 0c.2-.1 .4-.2 .6-.2a8.6 8.6 0 0 0 1.4-.6L404.4 400.1a8 8 0 0 0 4-7V287.9l92.2-53.1a8 8 0 0 0 4-7V117.9A8.6 8.6 0 0 0 504.4 115.8zM111.6 17.3h0l80.2 46.2-80.2 46.2L31.4 63.4zm88.3 60V278.6l-46.5 26.8-33.7 19.4V123.5l46.5-26.8zm0 412.8L23.4 388.5V77.3L57.1 96.7l46.5 26.8V338.7a6.9 6.9 0 0 0 .1 .9 8 8 0 0 0 .2 1.2h0a5.9 5.9 0 0 0 .4 .9 6.4 6.4 0 0 0 .4 1v0a8.5 8.5 0 0 0 .6 .8 7.6 7.6 0 0 0 .7 .8l0 0c.2 .2 .5 .4 .8 .6a8.9 8.9 0 0 0 .9 .7l0 0 0 0 92.2 52.2zm8-106.2-80.1-45.3 84.1-48.4 92.3-53.1 80.1 46.1-58.8 33.6zm184.5 4.6L215.9 490.1V397.8L346.6 323.2l45.8-26.2zm0-119.1L358.7 250l-46.5-26.8V131.8l33.7 19.4L392.4 178zm8-105.3-80.2-46.2 80.2-46.2 80.2 46.2zm8 105.3V178L455 151.2l33.7-19.4v91.4h0z"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-center text-purple-200">Backend Power</h3>
+                    <p class="text-gray-300 mb-6 text-center">Building robust, scalable server architectures</p>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <span class="bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full text-sm border border-purple-500/30">Laravel</span>
+                        <span class="bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full text-sm border border-purple-500/30">Node.js</span>
+                        <span class="bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full text-sm border border-purple-500/30">Python</span>
+                        <span class="bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full text-sm border border-purple-500/30">PostgreSQL</span>
+                        <span class="bg-purple-500/20 text-purple-300 px-4 py-2 rounded-full text-sm border border-purple-500/30">MySQL</span>
+                    </div>
+                </div>
+                
+                <div class="skill-card glass-effect p-10 rounded-3xl scroll-reveal">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-400 rounded-2xl flex items-center justify-center mb-8 mx-auto">
+                        <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M429.5 236.3L291.7 374.1 429.5 512H272l-59.1-59.1-78.8-78.8L272 236.3H429.5zM272 0L16 256l78.8 78.8L429.5 0H272z"/></svg>
+                    </div>
+                    <h3 class="text-2xl font-bold mb-6 text-center text-green-200">Mobile Development</h3>
+                    <p class="text-gray-300 mb-6 text-center">Scalable mobile apps development and deployment</p>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <span class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm border border-green-500/30">Dart</span>
+                        <span class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm border border-green-500/30">Flutter</span>
+                        <span class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm border border-green-500/30">Kotlin</span>
+                        <span class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm border border-green-500/30">Java</span>
+                    </div>
+                </div>
+
+                <div class="skill-card glass-effect p-10 rounded-3xl scroll-reveal">
+                    <div class="w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-400 rounded-2xl flex items-center justify-center mb-8 mx-auto">
+                        <svg class="w-10 h-10 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><!--!Font Awesome Free 6.7.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2025 Fonticons, Inc.--><path fill="currentColor" d="M277.7 312.9c9.8-6.7 23.4-12.5 23.4-12.5s-38.7 7-77.2 10.2c-47.1 3.9-97.7 4.7-123.1 1.3-60.1-8 33-30.1 33-30.1s-36.1-2.4-80.6 19c-52.5 25.4 130 37 224.5 12.1zm-85.4-32.1c-19-42.7-83.1-80.2 0-145.8C296 53.2 242.8 0 242.8 0c21.5 84.5-75.6 110.1-110.7 162.6-23.9 35.9 11.7 74.4 60.2 118.2zm114.6-176.2c.1 0-175.2 43.8-91.5 140.2 24.7 28.4-6.5 54-6.5 54s62.7-32.4 33.9-72.9c-26.9-37.8-47.5-56.6 64.1-121.3zm-6.1 270.5a12.2 12.2 0 0 1 -2 2.6c128.3-33.7 81.1-118.9 19.8-97.3a17.3 17.3 0 0 0 -8.2 6.3 70.5 70.5 0 0 1 11-3c31-6.5 75.5 41.5-20.6 91.4zM348 437.4s14.5 11.9-15.9 21.2c-57.9 17.5-240.8 22.8-291.6 .7-18.3-7.9 16-19 26.8-21.3 11.2-2.4 17.7-2 17.7-2-20.3-14.3-131.3 28.1-56.4 40.2C232.8 509.4 401 461.3 348 437.4zM124.4 396c-78.7 22 47.9 67.4 148.1 24.5a185.9 185.9 0 0 1 -28.2-13.8c-44.7 8.5-65.4 9.1-106 4.5-33.5-3.8-13.9-15.2-13.9-15.2zm179.8 97.2c-78.7 14.8-175.8 13.1-233.3 3.6 0-.1 11.8 9.7 72.4 13.6 92.2 5.9 233.8-3.3 237.1-46.9 0 0-6.4 16.5-76.2 29.7zM260.6 353c-59.2 11.4-93.5 11.1-136.8 6.6-33.5-3.5-11.6-19.7-11.6-19.7-86.8 28.8 48.2 61.4 169.5 25.9a60.4 60.4 0 0 1 -21.1-12.8z"/></svg>
+                    </div>
+                    
+                    <h3 class="text-2xl font-bold mb-6 text-center text-green-200">Software Development</h3>
+                    <p class="text-gray-300 mb-6 text-center">Fast and robust software development</p>
+                    <div class="flex flex-wrap gap-3 justify-center">
+                        <span class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm border border-green-500/30">Java</span>
+                        <span class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm border border-green-500/30">C++</span>
+                        <span class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm border border-green-500/30">C#</span>
+                        <span class="bg-green-500/20 text-green-300 px-4 py-2 rounded-full text-sm border border-green-500/30">C</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-32 relative">
+        <div class="section-divider"></div>
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-20 scroll-reveal">
+                <h2 class="text-5xl font-bold mb-6 gradient-text">Featured Creations</h2>
+                <p class="text-xl text-gray-300">Witness the digital worlds I've brought to life</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+                <div class="project-card glass-effect rounded-3xl overflow-hidden relative group scroll-reveal">
+                    <div class="h-64 bg-gradient-to-br from-blue-600 via-purple-600 to-pink-500 flex items-center justify-center relative">
+                        <div class="flex w-full h-full">
+                            <img src="https://play-lh.googleusercontent.com/1okTLfuslxh-z1E0IKeMYtj3EPp68HezYVVuQpivXjCWzG0iGeIBS8YPWk2q4YOSxGA=w5120-h2880-rw" alt="" class="w-1/3 h-full object-cover">
+                            <img src="https://play-lh.googleusercontent.com/gBjanTqa66zv8gEfx_CooY6hbvFL37d_xbfl0Kp98eQrzs3XV_jw3OwK9mbKF9iSfN4p=w5120-h2880-rw" alt="" class="w-1/3 h-full object-cover">
+                            <img src="https://play-lh.googleusercontent.com/KtAUZCicCmznMyNY9MYzEkTzof2Gh96wxHNIKmnLkPRq2oIfhz04B1lZ3Lwp7qU5C_c=w5120-h2880-rw" alt="" class="w-1/3 h-full object-cover">
+                        </div>
+                    </div>
+                    <div class="project-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <a href="https://play.google.com/store/apps/details?id=com.gmssby.mygms&hl=id" class="bg-white/20 backdrop-blur-md text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/30 transition-all">
+                                Explore Project
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-4 text-blue-200">MyGMS 2.0</h3>
+                        <p class="text-gray-300 mb-6">Mobile Apps that provide church congregation to access church information with interactive design</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-500/30">Dart</span>
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm border border-green-500/30">Flutter</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-500/30">REST API</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-500/30">MySQL</span>
+                            <span class="bg-green-500/20 text-green-300 px-3 py-1 rounded-full text-sm border border-green-500/30">PostGre</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-effect rounded-3xl overflow-hidden relative group scroll-reveal">
+                    <div class="h-64 bg-gradient-to-br from-emerald-500 via-teal-600 to-blue-600 flex items-center justify-center relative">
+                        <svg class="w-20 h-20 text-white" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/>
+                        </svg>
+                    </div>
+                    <div class="project-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <button onclick="alert('For privacy purposes, the owner prefer to not show the app preview');" class="bg-white/20 backdrop-blur-md text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/30 transition-all">
+                                Explore Project
+                            </button>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-4 text-emerald-200">Restoran Bakmi Gili Plaza</h3>
+                        <p class="text-gray-300 mb-6">Data entry, printing, and analytics for restaurant cashflow and order</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-emerald-500/20 text-emerald-300 px-3 py-1 rounded-full text-sm border border-emerald-500/30">Dart</span>
+                            <span class="bg-yellow-500/20 text-yellow-300 px-3 py-1 rounded-full text-sm border border-yellow-500/30">Flutter</span>
+                            <span class="bg-red-500/20 text-red-300 px-3 py-1 rounded-full text-sm border border-red-500/30">PostgreSQL</span>
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-500/30">Bluetooth</span>
+                            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-sm border border-blue-500/30">ESC/POS</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="project-card glass-effect rounded-3xl overflow-hidden relative group scroll-reveal">
+                    <div class="h-64 bg-gradient-to-br from-purple-600 via-pink-600 to-red-500 flex items-center justify-center relative">
+                        <div class="h-64 bg-gradient-to-br from-purple-600 via-pink-600 to-red-500 flex items-center justify-center relative">
+                            <div class="flex w-full h-full">
+                                <img src="LaStore.png" alt="" class="w-full h-full object-cover">
+                            </div>
+                        </div>                        
+                    </div>
+                    <div class="project-overlay absolute inset-0 flex items-center justify-center">
+                        <div class="text-center text-white">
+                            <a href="http://lastore.rf.gd" class="bg-white/20 backdrop-blur-md text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/30 transition-all">
+                                Explore Project
+                            </a>
+                        </div>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-2xl font-bold mb-4 text-purple-200">Top Up Store Mock Up</h3>
+                        <p class="text-gray-300 mb-6">Next generation top up store design that attracts young generation to buy more in game currency</p>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-500/30">HTML</span>
+                            <span class="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm border border-pink-500/30">CSS</span>
+                            <span class="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-sm border border-orange-500/30">JS</span>
+                            <span class="bg-pink-500/20 text-pink-300 px-3 py-1 rounded-full text-sm border border-pink-500/30">PHP</span>
+                            <span class="bg-purple-500/20 text-purple-300 px-3 py-1 rounded-full text-sm border border-purple-500/30">Laravel</span>
+                            <span class="bg-orange-500/20 text-orange-300 px-3 py-1 rounded-full text-sm border border-orange-500/30">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-32 relative">
+        <div class="section-divider"></div>
+        <div class="max-w-6xl mx-auto px-6">
+            <div class="text-center mb-20 scroll-reveal">
+                <h2 class="text-5xl font-bold mb-6 gradient-text">Let's Create Magic Together</h2>
+                <p class="text-xl text-gray-300">Ready to embark on an extraordinary digital journey?</p>
+            </div>
+            <div class="grid md:grid-cols-2 gap-16">
+                <div class="scroll-reveal-left">
+                    <h3 class="text-3xl font-bold mb-10 text-blue-200">Connect With Me</h3>
+                    <div class="space-y-8">
+                        <div class="flex items-center group">
+                            <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="text-gray-400 text-sm">Email</p>
+                                <p class="text-lg text-blue-200">timothyjuwono12@gmail.com</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center group">
+                            <div class="w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+                                </svg>
+                            </div>
+                            <a href="https://www.linkedin.com/in/timothy-juwono/">
+                            <div>
+                                <p class="text-gray-400 text-sm">LinkedIn</p>
+                                <p class="text-lg text-purple-200">https://www.linkedin.com/in/timothy-juwono/</p>
+                            </div>
+                            </a>
+                        </div>
+
+                        <div class="flex items-center group">
+                            <div class="w-16 h-16 bg-gradient-to-br from-green-500 to-teal-600 rounded-2xl flex items-center justify-center mr-6 group-hover:scale-110 transition-transform">
+                                <svg class="w-8 h-8 text-white" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                                </svg>
+                            </div>
+                            <a href="https://github.com/NME5">
+                            <div>
+                                <p class="text-gray-400 text-sm">GitHub</p>
+                                <p class="text-lg text-purple-200">github.com/NME5</p>
+                            </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="scroll-reveal-right">
+                    <form class="glass-effect p-10 rounded-3xl space-y-8" onsubmit="handleSubmit(event)">
+                        <div>
+                            <label class="block text-sm font-medium mb-3 text-blue-200">Name</label>
+                            <input type="text" class="w-full px-6 py-4 bg-white/5 border border-white/20 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-md text-white placeholder-gray-400" placeholder="Your name" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-3 text-blue-200">Email</label>
+                            <input type="email" class="w-full px-6 py-4 bg-white/5 border border-white/20 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-md text-white placeholder-gray-400" placeholder="your@email.com" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-3 text-blue-200">Message</label>
+                            <textarea rows="5" class="w-full px-6 py-4 bg-white/5 border border-white/20 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent backdrop-blur-md text-white placeholder-gray-400 resize-none" placeholder="Tell me about your vision..." required></textarea>
+                        </div>
+                        <button type="submit" class="w-full glow-button text-white py-4 rounded-xl font-semibold text-lg">
+                            Launch Our Collaboration
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-12 border-t border-white/10">
+        <div class="max-w-6xl mx-auto px-6 text-center">
+            <p class="text-gray-400">&copy; 2025 Timothy Juwono. Crafted with passion in the tech industry.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Typing animation
+        const texts = ['Full-Stack Developer', 'Backend Developer', 'Software Developer', 'Mobile Developer'];
+        let textIndex = 0;
+        let charIndex = 0;
+        let isDeleting = false;
+        const typingElement = document.getElementById('typing-text');
+
+        function typeText() {
+            const currentText = texts[textIndex];
+            
+            if (isDeleting) {
+                typingElement.textContent = currentText.substring(0, charIndex - 1);
+                charIndex--;
+            } else {
+                typingElement.textContent = currentText.substring(0, charIndex + 1);
+                charIndex++;
+            }
+
+            let typeSpeed = isDeleting ? 50 : 100;
+
+            if (!isDeleting && charIndex === currentText.length) {
+                typeSpeed = 2000;
+                isDeleting = true;
+            } else if (isDeleting && charIndex === 0) {
+                isDeleting = false;
+                textIndex = (textIndex + 1) % texts.length;
+                typeSpeed = 500;
+            }
+
+            setTimeout(typeText, typeSpeed);
+        }
+
+        // Start typing animation
+        typeText();
+
+        // Smooth scrolling
+        function scrollToSection(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({
+                behavior: 'smooth'
+            });
+        }
+
+        // Navigation links smooth scroll
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                scrollToSection(targetId);
+            });
+        });
+
+        // Form submission
+        function handleSubmit(event) {
+            event.preventDefault();
+            alert('Message received! This is a demo form. In a real portfolio, this would send your message to the cosmos.');
+        }
+
+        // Enhanced Scroll Reveal Animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                }
+            });
+        }, observerOptions);
+
+        // Observe all scroll reveal elements
+        document.querySelectorAll('.scroll-reveal, .scroll-reveal-left, .scroll-reveal-right').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Parallax effect for hero section
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const heroGlow = document.querySelector('.hero-glow');
+            if (heroGlow) {
+                heroGlow.style.transform = `translate(-50%, -50%) translateY(${scrolled * 0.5}px)`;
+            }
+        });
+
+        // Add staggered animation delays
+        document.querySelectorAll('.scroll-reveal').forEach((el, index) => {
+            el.style.transitionDelay = `${index * 0.1}s`;
+        });
+
+        // Smart sticky navbar
+        let lastScrollTop = 0;
+        const navbar = document.querySelector('nav');
+        
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            
+            // Add scrolled class when scrolling down
+            if (scrollTop > 100) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
+            
+            // Hide/show navbar based on scroll direction
+            if (scrollTop > lastScrollTop && scrollTop > 200) {
+                // Scrolling down - hide navbar
+                navbar.style.transform = 'translateY(-100%)';
+            } else {
+                // Scrolling up - show navbar
+                navbar.style.transform = 'translateY(0)';
+            }
+            
+            lastScrollTop = scrollTop;
+        });
+
+        // Mobile menu functionality
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const hamburgerIcon = document.getElementById('hamburger-icon');
+        const closeIcon = document.getElementById('close-icon');
+        let isMenuOpen = false;
+
+        mobileMenuButton.addEventListener('click', () => {
+            isMenuOpen = !isMenuOpen;
+            
+            if (isMenuOpen) {
+                mobileMenu.classList.remove('hidden');
+                hamburgerIcon.classList.add('hidden');
+                closeIcon.classList.remove('hidden');
+                mobileMenuButton.style.transform = 'rotate(90deg)';
+            } else {
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                mobileMenuButton.style.transform = 'rotate(0deg)';
+            }
+        });
+
+        // Close mobile menu when clicking on a link
+        document.querySelectorAll('#mobile-menu .nav-link').forEach(link => {
+            link.addEventListener('click', () => {
+                isMenuOpen = false;
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                mobileMenuButton.style.transform = 'rotate(0deg)';
+            });
+        });
+
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (isMenuOpen && !navbar.contains(e.target)) {
+                isMenuOpen = false;
+                mobileMenu.classList.add('hidden');
+                hamburgerIcon.classList.remove('hidden');
+                closeIcon.classList.add('hidden');
+                mobileMenuButton.style.transform = 'rotate(0deg)';
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'962c6051d12f5640',t:'MTc1MzExODUwMy4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
